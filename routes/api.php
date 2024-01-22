@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,3 +33,11 @@ Route::prefix('product')->controller(ProductController::class)->group(function (
         Route::post('{product}/add-media', 'addMedia');
     });
 });
+
+Route::prefix('cart')
+    ->controller(CartController::class)
+    ->middleware('auth:api')
+    ->group(function () {
+        Route::post('{product}/add', 'addToCart');
+        Route::post('{product}/remove', 'removeFromCart');
+    });

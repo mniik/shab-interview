@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ProductAddedToCart;
+use App\Events\ProductRemovedFromCart;
+use App\Listeners\LogForProductAddedToCart;
+use App\Listeners\LogForProductRemovedFromCart;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +21,14 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+
+        ProductAddedToCart::class => [
+            LogForProductAddedToCart::class,
+        ],
+
+        ProductRemovedFromCart::class => [
+            LogForProductRemovedFromCart::class,
         ],
     ];
 
