@@ -1,0 +1,22 @@
+#!/bin/sh
+
+
+echo "Code Style Fixing..."
+files=$(git diff --cached --name-only --diff-filter=ACMR -- '*.php');
+./vendor/bin/sail php ./vendor/bin/pint $files
+echo "Pint Code Fixing Done!"
+
+
+
+echo "Check tests passed..."
+
+command="./vendor/bin/sail php artisan test"
+$command
+status=$?
+
+[ $status -eq 0 ] && echo "Tests Passed!" || exit
+
+git add $files
+
+
+
