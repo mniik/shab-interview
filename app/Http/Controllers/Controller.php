@@ -15,13 +15,13 @@ class Controller extends BaseController
     /**
      * General 200 Response
      */
-    public function successResponse($data = null, $message = null): JsonResponse
+    public function successResponse($data = null, $message = null, $code = ResponseAlias::HTTP_OK): JsonResponse
     {
         return response()->json([
             'status' => true,
             'message' => $message,
             'data' => $data,
-        ], ResponseAlias::HTTP_OK);
+        ], $code);
     }
 
     /**

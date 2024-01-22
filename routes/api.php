@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
-    Route::post('login', 'login');
+    Route::post('login', 'login')->name('login');
+});
+
+Route::prefix('product')->controller(ProductController::class)->group(function () {
+    Route::middleware('auth:api')->group(function () {
+        Route::post('', 'store');
+        Route::delete('{product}', 'delete');
+        Route::post('{product}/add-media', 'addMedia');
+    });
 });
