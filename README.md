@@ -1,7 +1,8 @@
 Shab Market Platform interview Task
 
 ## installation:
-this project has ready installation process with laravel sail, clone the project and run `install.sh`
+this project has ready installation process with laravel sail, clone the project and run:<br/>
+`install.sh`<br/>
 if your internet provider has a restriction on docker domains, you may need change in dns or
 Virtual private network access to download respecting volumes.<br/>
 volumes:<br/>

@@ -37,4 +37,10 @@ class Product extends Model implements HasMedia
             ->height(600)
             ->performOnCollections('images');
     }
+
+    public function getDeliveryPriceFormula()
+    {
+        // some dynamic logic
+        return $this->price * strlen($this->title) / 10;
+    }
 }

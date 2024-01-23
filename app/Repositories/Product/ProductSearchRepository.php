@@ -12,7 +12,7 @@ abstract class ProductSearchRepository
 
     abstract public function search();
 
-    public function whenSortExists(?bool $condition)
+    public function whenSortExists(?bool $condition): static
     {
         if ($condition) {
             $this->sort = 1;
@@ -30,7 +30,7 @@ abstract class ProductSearchRepository
         return $this;
     }
 
-    public function whenTitleExists(?string $titleQuery)
+    public function whenTitleExists(?string $titleQuery): static
     {
         if ($titleQuery) {
             $this->titleQuery = $titleQuery;

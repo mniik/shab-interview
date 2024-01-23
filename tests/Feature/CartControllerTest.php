@@ -146,13 +146,12 @@ class CartControllerTest extends TestCase
         $order = Order::where('user_id', $this->user->id)->latest()->first();
         $this->assertNotNull($order);
         $this->assertEquals($this->user->id, $order->user_id);
-        $this->assertEquals(200, $order->total_price);
         $this->assertCount(1, $order->items);
         $this->assertEquals($product->id, $order->items->first()->product_id);
         $this->assertEquals(2, $order->items->first()->quantity);
 
-        $orderItemPrice = $order->items->sum(fn ($item) => $item->quantity * $item->product->price);
-
+        $orderItemPrice = $order->items->sum(fn ($item) => ($item->product->getDeliveryPriceFormula() + $item->product->price) * $item->quantity);
+        $this->assertEquals($orderItemPrice, $order->total_price);
         $response->assertJsonPath('data.total_price', $orderItemPrice);
 
         Event::assertDispatched(OrderPlaced::class);

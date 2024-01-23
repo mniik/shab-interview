@@ -34,7 +34,7 @@ class OrderService
     {
         $totalPrice = 0;
         foreach ($orderItems as $item) {
-            $totalPrice += $item->product->price * $item->quantity;
+            $totalPrice += ($item->product->price + $item->product->getDeliveryPriceFormula()) * $item->quantity;
         }
 
         return $totalPrice;

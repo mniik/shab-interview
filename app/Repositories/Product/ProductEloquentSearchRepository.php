@@ -14,7 +14,7 @@ class ProductEloquentSearchRepository extends ProductSearchRepository
             ->when($this->titleQuery, function (Builder $query) {
                 $query->where('title', 'like', "%{$this->titleQuery}%");
             })->when($this->maxPriceQuery, function (Builder $query) {
-                $query->where('price', '<', $this->maxPriceQuery);
+                $query->where('price', '<=', $this->maxPriceQuery);
             })->when($this->sort, function (Builder $query) {
                 $query->orderBy('price', 'asc');
             })->get();
