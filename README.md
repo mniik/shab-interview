@@ -13,6 +13,8 @@ elasticsearch access http://localhost:9200
 
 container up and down with `./vendor/bin/sail up -d` and `./vendor/bin/sail down`
 
+for testing authenticated routes, first login and then set bearer token in postman
+
 ## description
 git hooks file is included in project, code style fix with laravel/pint and run php artisan test pre commit
 this project apis are exported with postman collection.
