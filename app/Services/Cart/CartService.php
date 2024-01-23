@@ -78,13 +78,13 @@ class CartService
 
             $orderService = app(OrderService::class);
 
-            $order = $orderService->createOrder(['user_id' => $user->id]);
-
-            $orderService->createOrderItemsFromCart($order, $cart->cartItems);
+            $order = $orderService->createOrder($user, $cart->cartItems);
 
             $this->cartRepository->createActiveCart($user);
 
             DB::commit();
+
+            return $order;
 
         } catch (\Exception $e) {
             Log::error($e);

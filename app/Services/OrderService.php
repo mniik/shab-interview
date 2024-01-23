@@ -12,15 +12,31 @@ class OrderService
     {
     }
 
-    public function createOrder($data): Order
+    public function createOrder($user, $cartItems): Order
     {
-        return $this->orderRepository->createOrder($data);
-    }
+        $order = $this->orderRepository->createOrder(['user_id' => $user->id]);
 
-    public function createOrderItemsFromCart(Order $order, $cartItems)
-    {
-        $this->orderRepository->createOrderItems($order, $cartItems);
+        $orderItems = $this->createOrderItemsFromCart($order, $cartItems);
+        $totalPrice = $this->getFinalPrice($orderItems);
+        $order = $this->orderRepository->updateOrderPrice($order, $totalPrice);
 
         OrderPlaced::dispatch($order);
+
+        return $order;
+    }
+
+    private function createOrderItemsFromCart(Order $order, $cartItems)
+    {
+        return $this->orderRepository->createOrderItems($order, $cartItems);
+    }
+
+    private function getFinalPrice(mixed $orderItems)
+    {
+        $totalPrice = 0;
+        foreach ($orderItems as $item) {
+            $totalPrice += $item->product->price * $item->quantity;
+        }
+
+        return $totalPrice;
     }
 }

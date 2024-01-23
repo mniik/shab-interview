@@ -3,18 +3,23 @@
 namespace App\Repositories\Order;
 
 use App\Models\Order;
-use Illuminate\Support\Facades\DB;
 
 class OrderRepository
 {
     public function createOrder(array $data): Order
     {
-        return DB::transaction(function () use ($data) {
-            return Order::create($data);
-        });
+        return Order::create($data);
     }
 
-    public function createOrderItems(Order $order, $items): void
+    public function updateOrderPrice(Order $order, int $price): Order
+    {
+        $order->total_price = $price;
+        $order->save();
+
+        return $order;
+    }
+
+    public function createOrderItems(Order $order, $items)
     {
         foreach ($items as $item) {
             $order->items()->create([
@@ -23,5 +28,7 @@ class OrderRepository
                 'order_id' => $order->id,
             ]);
         }
+
+        return $order->items;
     }
 }
