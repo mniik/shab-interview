@@ -83,6 +83,21 @@ services:
         environment:
             - PMA_ARBITRARY=1
 
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+        environment:
+            - discovery.type=single-node
+            - ELASTICSEARCH_USER=elastic
+            - ELASTIC_PASSWORD=password
+            - XPACK_SECURITY_ENABLED= 'false'
+        ports:
+            - 9200:9200
+            - 9300:9300
+        volumes:
+            - sail-elasticsearch:/usr/share/elasticsearch/data
+        networks:
+            - sail
+
 networks:
     sail:
         driver: bridge
@@ -90,4 +105,6 @@ volumes:
     sail-mysql:
         driver: local
     sail-redis:
+        driver: local
+    sail-elasticsearch:
         driver: local

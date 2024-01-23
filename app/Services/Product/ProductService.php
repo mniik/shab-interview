@@ -5,12 +5,15 @@ namespace App\Services\Product;
 use App\Exceptions\FileUploadException;
 use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
+use App\Repositories\Product\ProductSearchRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class ProductService
 {
-    public function __construct(private readonly ProductRepository $productRepository)
+    public function __construct(
+        private readonly ProductRepository $productRepository,
+        private ProductSearchRepository $searchRepository)
     {
     }
 
@@ -37,5 +40,13 @@ class ProductService
             throw new FileUploadException();
         }
 
+    }
+
+    public function search($request)
+    {
+        return $this->searchRepository->whenTitleExists($request->input('title'))
+            ->whenMaxPriceExists($request->input('maxPrice'))
+            ->whenSortExists($request->input('sortBy'))
+            ->search();
     }
 }

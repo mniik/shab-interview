@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Services\Product\ProductService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -40,5 +41,10 @@ class ProductController extends Controller
         $this->productService->addMedia(files: ['attachments'], product: $product);
 
         return $this->successResponse(code: Response::HTTP_CREATED);
+    }
+
+    public function search(Request $request)
+    {
+        return $this->productService->search($request);
     }
 }

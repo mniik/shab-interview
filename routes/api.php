@@ -27,6 +27,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::prefix('product')->controller(ProductController::class)->group(function () {
+    Route::get('', 'search');
+
     Route::middleware('auth:api')->group(function () {
         Route::post('', 'store');
         Route::delete('{product}', 'delete');

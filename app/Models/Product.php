@@ -12,6 +12,7 @@ class Product extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
+    use Searchable;
 
     protected $fillable = [
         'title',
