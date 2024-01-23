@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\User;
 
 use App\Exceptions\InvalidCredentialsException;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use App\Repositories\UserRepository;
+use App\Repositories\User\UserRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class UserService

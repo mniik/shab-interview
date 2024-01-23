@@ -8,7 +8,7 @@ use App\Exceptions\CartItemNotFoundException;
 use App\Exceptions\CartNotFoundException;
 use App\Models\Product;
 use App\Repositories\Cart\CartRepository;
-use App\Services\OrderService;
+use App\Services\Order\OrderService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 

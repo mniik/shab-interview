@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\User;
 
 use App\Exceptions\InvalidCredentialsException;
 use App\Models\User;
+use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 
