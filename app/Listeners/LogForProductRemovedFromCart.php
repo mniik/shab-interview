@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class LogForProductRemovedFromCart implements ShouldQueue
 {
-    public string $queue = 'log';
+    //    public string $queue = 'log';
 
     /**
      * Create the event listener.

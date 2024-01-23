@@ -6,7 +6,7 @@ use App\Events\OrderPlaced;
 
 class LogForOrderPlaced
 {
-    public string $queue = 'log';
+    //    public string $queue = 'log';
 
     /**
      * Create the event listener.

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class InventoryUpdateForOrderPlaced implements ShouldQueue
 {
-    protected $queue = 'inventory-queue';
+    //    protected $queue = 'inventory-queue';
 
     /**
      * Create the event listener.

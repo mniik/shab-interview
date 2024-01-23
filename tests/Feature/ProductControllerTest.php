@@ -4,16 +4,27 @@ namespace Tests\Feature;
 
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
+use Mockery;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class ProductControllerTest extends TestCase
 {
     use DatabaseTransactions,WithFaker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        app()->instance('events.dispatcher', Mockery::mock(Dispatcher::class));
+        Event::fake();
+    }
 
     /**
      * store product feature test.

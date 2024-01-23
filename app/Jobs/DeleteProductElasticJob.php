@@ -20,7 +20,7 @@ class DeleteProductElasticJob implements ShouldQueue
      */
     public function __construct(public Product $product)
     {
-        $this->onQueue('delete-elastic');
+        //        $this->onQueue('delete-elastic');
     }
 
     /**

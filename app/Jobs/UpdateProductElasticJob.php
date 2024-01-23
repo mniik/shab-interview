@@ -20,7 +20,7 @@ class UpdateProductElasticJob implements ShouldQueue
      */
     public function __construct(public Product $product)
     {
-        $this->onQueue('update-elastic');
+        //        $this->onQueue('update-elastic');
     }
 
     /**
