@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\OrderPlaced;
 use App\Events\ProductAddedToCart;
 use App\Events\ProductRemovedFromCart;
+use App\Listeners\EmailToAdminForOrderPlaced;
+use App\Listeners\InventoryUpdateForOrderPlaced;
+use App\Listeners\LogForOrderPlaced;
 use App\Listeners\LogForProductAddedToCart;
 use App\Listeners\LogForProductRemovedFromCart;
 use Illuminate\Auth\Events\Registered;
@@ -29,6 +33,12 @@ class EventServiceProvider extends ServiceProvider
 
         ProductRemovedFromCart::class => [
             LogForProductRemovedFromCart::class,
+        ],
+
+        OrderPlaced::class => [
+            InventoryUpdateForOrderPlaced::class,
+            EmailToAdminForOrderPlaced::class,
+            LogForOrderPlaced::class,
         ],
     ];
 

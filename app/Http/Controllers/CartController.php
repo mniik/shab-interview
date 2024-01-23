@@ -25,4 +25,11 @@ class CartController extends Controller
 
         return $this->successResponse();
     }
+
+    public function submitCart(): JsonResponse
+    {
+        $this->cartService->submitCart();
+
+        return $this->successResponse();
+    }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Services\Cart;
 
-use App\Enums\CartState;
 use App\Events\ProductAddedToCart;
 use App\Events\ProductRemovedFromCart;
 use App\Exceptions\CartItemNotFoundException;
 use App\Exceptions\CartNotFoundException;
-use App\Models\Cart;
 use App\Models\Product;
 use App\Repositories\Cart\CartRepository;
+use App\Services\OrderService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CartService
 {
@@ -26,7 +27,7 @@ class CartService
         $cart = $this->cartRepository->getActiveCart($user);
 
         if (! $cart) {
-            $cart = Cart::create(['user_id' => $user->id, 'is_active' => CartState::Active]);
+            $cart = $this->cartRepository->createActiveCart($user);
         }
 
         $this->cartRepository->incrementOrCreateCartItem($cart, $product);
@@ -55,6 +56,38 @@ class CartService
             ProductRemovedFromCart::dispatch($cart, $product);
         } else {
             throw new CartItemNotFoundException();
+        }
+    }
+
+    /**
+     * @throws CartNotFoundException
+     */
+    public function submitCart()
+    {
+        $user = auth()->user();
+
+        $cart = $this->cartRepository->getActiveCart($user);
+
+        if (! $cart) {
+            throw new CartNotFoundException();
+        }
+        DB::beginTransaction();
+        try {
+            // Update cart status to finalized
+            $this->cartRepository->makeCartStale($cart);
+
+            $orderService = app(OrderService::class);
+
+            $order = $orderService->createOrder(['user_id' => $user->id]);
+
+            $orderService->createOrderItemsFromCart($order, $cart->cartItems);
+
+            $this->cartRepository->createActiveCart($user);
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            Log::error($e);
         }
     }
 }

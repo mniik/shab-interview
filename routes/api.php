@@ -42,4 +42,5 @@ Route::prefix('cart')
     ->group(function () {
         Route::post('{product}/add', 'addToCart');
         Route::post('{product}/remove', 'removeFromCart');
+        Route::post('/submit', 'submitCart');
     });
