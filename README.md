@@ -29,3 +29,10 @@ this project provides these features:<br/>
 * elastic can be disabled by environment variable `ELASTICSEARCH_ENABLED`
 * Cart add, remove to cart and submit cart which inform admin with email and return final price to user with tests
 
+## Note
+I was considering adding delivery_price to product table, and wanted to make an index with those columns, but it seems not an good option.</br>
+so after mentioning this issue with shab team, they said it should be real time, and after response i didnt have enough time to elaborate best solution.</br>
+there is huge trade off between performance of filtering products with non indexed data column, so i check elastic search for scripts dynamics,
+fulltext indexing, virtual column and view table for mysql, but i didnt conclude a solution in time.</br>
+anyway i just add delivery price to orders, and not inculded in search and filters 
+
