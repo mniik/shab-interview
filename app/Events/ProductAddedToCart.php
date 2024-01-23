@@ -19,12 +19,7 @@ class ProductAddedToCart
     /**
      * Create a new event instance.
      */
-    public function __construct()
-    {
-        //
-    }
-
-    public function handle(Cart $cart, Product $product): void
+    public function __construct(Cart $cart, Product $product)
     {
         $this->cart = $cart;
         $this->product = $product;

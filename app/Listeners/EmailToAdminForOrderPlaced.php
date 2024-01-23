@@ -20,6 +20,6 @@ class EmailToAdminForOrderPlaced
      */
     public function handle(OrderPlaced $event): void
     {
-        $this->emailNotifierService->notify($event->order, $event->user);
+        $this->emailNotifierService->notify($event->order, $event->admin);
     }
 }

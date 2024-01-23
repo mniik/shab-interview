@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\Cart\CartService;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class CartController extends Controller
 {
@@ -16,20 +17,20 @@ class CartController extends Controller
     {
         $this->cartService->addToCart($product);
 
-        return $this->successResponse();
+        return $this->successResponse(code: Response::HTTP_CREATED);
     }
 
     public function removeFromCart(Product $product): JsonResponse
     {
         $this->cartService->removeFromCart($product);
 
-        return $this->successResponse();
+        return $this->successResponse(code: Response::HTTP_NO_CONTENT);
     }
 
     public function submitCart(): JsonResponse
     {
         $order = $this->cartService->submitCart();
 
-        return $this->successResponse(data: $order);
+        return $this->successResponse(data: $order, code: Response::HTTP_CREATED);
     }
 }

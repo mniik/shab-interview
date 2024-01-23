@@ -23,8 +23,8 @@ this project apis are exported with postman collection.<br/>
 this project provides these features:<br/>
 * sanctum authentication login/register with tests
 * Product store/delete with tests
-* Product addMedia is implemented with laravel/spatie with resize feature
+* Product addMedia is implemented with laravel/spatie with resize feature with tests
 * Product search title, filter by maxPrice and sort by lowest price with elastic search and fallback with eloquent query,
 * elastic can be disabled by environment variable `ELASTICSEARCH_ENABLED`
-* Cart add, remove to cart and submit cart which inform admin with email and return final price to user
+* Cart add, remove to cart and submit cart which inform admin with email and return final price to user with tests
 

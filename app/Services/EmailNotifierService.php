@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailNotifierService
 {
-    public function notify(Order $order, User $user): void
+    public function notify(Order $order, User $admin): void
     {
-        Mail::to($user->email)->send(new OrderPlacedMail($order));
+        Mail::to($admin->email)->send(new OrderPlacedMail($order));
     }
 }

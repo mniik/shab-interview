@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,13 @@ class CartItemFactory extends Factory
      */
     public function definition(): array
     {
+        $product = Product::factory()->create();
+        $cart = Cart::factory()->active()->create();
+
         return [
-            //
+            'cart_id' => $cart->id,
+            'product_id' => $product->id,
+            'quantity' => 1,
         ];
     }
 }

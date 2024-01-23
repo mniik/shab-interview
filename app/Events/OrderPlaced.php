@@ -12,14 +12,14 @@ class OrderPlaced
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public $admin;
 
     /**
      * Create a new event instance.
      */
     public function __construct(public Order $order)
     {
-        $this->user = User::where('email', 'admin@admin.com')->first();
+        $this->admin = User::where('email', 'admin@admin.com')->first();
 
     }
 }
